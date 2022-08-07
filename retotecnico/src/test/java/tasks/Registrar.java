@@ -6,27 +6,43 @@ import userinterface.*;
 import java.time.Duration;
 
 public class Registrar implements Task {
+    private final String strNombre;
+    private final String strApellido;
+    private final String strCorreo;
+    private final String strCiudad;
+    private final String strZip;
+    private final String strPais;
+    private final String strPassword;
 
-    public static Registrar elUsuarioPaso1() {
-        return Tasks.instrumented(Registrar.class);
+    public Registrar(String strNombre, String strApellido, String strCorreo, String strCiudad, String strZip, String strPais, String strPassword) {
+        this.strNombre = strNombre;
+        this.strApellido = strApellido;
+        this.strCorreo = strCorreo;
+        this.strCiudad = strCiudad;
+        this.strZip = strZip;
+        this.strPais = strPais;
+        this.strPassword = strPassword;
     }
 
+    public static Registrar elUsuarioPaso1(String strNombre, String strApellido, String strCorreo, String strCiudad, String strZip, String strPais, String strPassword) {
+        return Tasks.instrumented(Registrar.class,strNombre,strApellido,strCorreo,strCiudad,strZip,strPais,strPassword);
+    }
 
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(Click.on(uTestPaginaRegistroPaso1.JOIN_BUTTON),
 
-                Enter.keyValues("Andres").into(uTestPaginaRegistroPaso1.INPUT_NAME.waitingForNoMoreThan(Duration.ofMinutes(2))),
-                Enter.theValue("Parra").into(uTestPaginaRegistroPaso1.INPUT_LASTNAME.waitingForNoMoreThan(Duration.ofSeconds(4))),
-                Enter.theValue("japc48@gmail.com").into(uTestPaginaRegistroPaso1.INPUT_EMAIL),
+                Enter.keyValues(strNombre).into(uTestPaginaRegistroPaso1.INPUT_NAME.waitingForNoMoreThan(Duration.ofMinutes(2))),
+                Enter.theValue(strApellido).into(uTestPaginaRegistroPaso1.INPUT_LASTNAME.waitingForNoMoreThan(Duration.ofSeconds(4))),
+                Enter.theValue(strCorreo).into(uTestPaginaRegistroPaso1.INPUT_EMAIL),
                 Click.on(uTestPaginaRegistroPaso1.INPUT_MONTHBIRTH),
                 Click.on(uTestPaginaRegistroPaso1.INPUT_BIRTHDAY),
                 Click.on(uTestPaginaRegistroPaso1.INPUT_BIRTHYEAR),
                 Click.on(uTestPaginaRegistroPaso1.NEXT_BUTTON),
-                Enter.keyValues("Bogota,Bogota").into(uTestPaginaRegistroPaso2.INPUT_CITY),
-                Enter.theValue("110111").into(uTestPaginaRegistroPaso2.INPUT_ZIP),
+                Enter.keyValues(strCiudad).into(uTestPaginaRegistroPaso2.INPUT_CITY),
+                Enter.theValue(strZip).into(uTestPaginaRegistroPaso2.INPUT_ZIP),
                 Click.on(uTestPaginaRegistroPaso2.CHOOSE_SELECT),
-                Enter.keyValues("Colombia").into(uTestPaginaRegistroPaso2.WRITE_COUNTRY),
+                Enter.keyValues(strPais).into(uTestPaginaRegistroPaso2.WRITE_COUNTRY),
                 Click.on(uTestPaginaRegistroPaso2.INPUT_COUNTRY),
                 Click.on(uTestPaginaRegistroPaso2.NEXT_BUTTON),
                 Click.on(uTestPaginaRegistroPaso3.REMOVE_OPTION.waitingForNoMoreThan(Duration.ofSeconds(5))),
@@ -37,8 +53,8 @@ public class Registrar implements Task {
                 Click.on(uTestPaginaRegistroPaso3.CHOOSE_OPTION_LANGUAGE_OS),
                 Click.on(uTestPaginaRegistroPaso3.INPUT_LANGUAJE_OS),
                 Click.on(uTestPaginaRegistroPaso3.NEXT_BUTTON),
-                Enter.theValue("Choucair4636*").into(uTestPaginaRegistroPaso4.INPUT_PASSWORD),
-                Enter.theValue("Choucair4636*").into(uTestPaginaRegistroPaso4.INPUT_CONFIRM_PASSWORD)
+                Enter.theValue(strPassword).into(uTestPaginaRegistroPaso4.INPUT_PASSWORD),
+                Enter.theValue(strPassword).into(uTestPaginaRegistroPaso4.INPUT_CONFIRM_PASSWORD)
                 );
     }
 }
