@@ -3,6 +3,8 @@ package tasks;
 import net.serenitybdd.screenplay.*;
 import net.serenitybdd.screenplay.actions.*;
 import userinterface.*;
+import util.Retardo;
+
 import java.time.Duration;
 
 public class Registrar implements Task {
@@ -14,16 +16,18 @@ public class Registrar implements Task {
 
     @Override
     public <T extends Actor> void performAs(T actor) {
+        Retardo.sleep(5);
         actor.attemptsTo(Click.on(uTestPaginaRegistroPaso1.JOIN_BUTTON),
-
                 Enter.keyValues("Andres").into(uTestPaginaRegistroPaso1.INPUT_NAME.waitingForNoMoreThan(Duration.ofMinutes(2))),
                 Enter.theValue("Parra").into(uTestPaginaRegistroPaso1.INPUT_LASTNAME.waitingForNoMoreThan(Duration.ofSeconds(4))),
                 Enter.theValue("japc48@gmail.com").into(uTestPaginaRegistroPaso1.INPUT_EMAIL),
                 Click.on(uTestPaginaRegistroPaso1.INPUT_MONTHBIRTH),
                 Click.on(uTestPaginaRegistroPaso1.INPUT_BIRTHDAY),
                 Click.on(uTestPaginaRegistroPaso1.INPUT_BIRTHYEAR),
-                Click.on(uTestPaginaRegistroPaso1.NEXT_BUTTON),
-                Enter.keyValues("Bogota,Bogota").into(uTestPaginaRegistroPaso2.INPUT_CITY),
+                Click.on(uTestPaginaRegistroPaso1.NEXT_BUTTON)
+                );
+        Retardo.sleep(7);
+        actor.attemptsTo(
                 Enter.theValue("110111").into(uTestPaginaRegistroPaso2.INPUT_ZIP),
                 Click.on(uTestPaginaRegistroPaso2.CHOOSE_SELECT),
                 Enter.keyValues("Colombia").into(uTestPaginaRegistroPaso2.WRITE_COUNTRY),
@@ -38,7 +42,7 @@ public class Registrar implements Task {
                 Click.on(uTestPaginaRegistroPaso3.INPUT_LANGUAJE_OS),
                 Click.on(uTestPaginaRegistroPaso3.NEXT_BUTTON),
                 Enter.theValue("Choucair4636*").into(uTestPaginaRegistroPaso4.INPUT_PASSWORD),
-                Enter.theValue("Choucair4636*").into(uTestPaginaRegistroPaso4.INPUT_CONFIRM_PASSWORD)
-                );
+                Enter.theValue("Choucair4636*").into(uTestPaginaRegistroPaso4.INPUT_CONFIRM_PASSWORD));
+
     }
 }
